@@ -12,15 +12,18 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserMapperTest {
 
     private final static String USER = "dev";
-    private final static String PASSWORD = "ax2";
-    private final static String URL = "jdbc:mysql://localhost:3306/startcode_test?serverTimezone=CET&useSSL=false";
+    private final static String PASSWORD = "dev";
+    private final static String URL = "jdbc:mysql://localhost:3306/bmi_test?serverTimezone=CET&useSSL=false";
 
     private static Database database;
     private static UserMapper userMapper;
 
+
+
     @BeforeAll
     public static void setUpClass() {
         try {
+            /*database = new Database("dev","dev","jdbc:mysql://127.0.0.1:3306/bmi?user=dev&serverTimezone=CET");*/
             database = new Database(USER, PASSWORD, URL);
             userMapper = new UserMapper(database);
         } catch (ClassNotFoundException e) {   // kan ikke finde driveren i database klassen
@@ -33,8 +36,8 @@ public class UserMapperTest {
 
             // reset test database
             try ( Statement stmt = database.connect().createStatement() ) {
-                stmt.execute("drop table if exists users" );
-                stmt.execute("create table startcode_test.users LIKE startcode.users;" );
+                stmt.execute("drop table if exists bmi_test.users" );
+                stmt.execute("create table bmi_test.users LIKE bmi.users;" );
                 stmt.execute(
                     "insert into users values " +
                     "(1,'jens@somewhere.com','jensen','customer'), " +
